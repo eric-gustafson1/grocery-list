@@ -37,12 +37,23 @@ app.get('/', (req, res) => {
     })
 })
 
+app.get('/:store', (req, res) => {
+    let store = req.params.store;
+
+    connection.query('SELECT * FROM groceries WHERE store = ?', [store], (err, data) => {
+        if (err) {
+            return res.statusCode(500).end();
+        }
+        res.render('index', { groceries: data })
+    })
+
+})
+
 app.post('/api/add', (req, res) => {
     connection.query('INSERT INTO groceries (item, store) VALUES (?, ?);', [req.body.item, req.body.store], (err, result) => {
         if (err) {
             return res.status(500).end();
         }
-        console.log(req.body.item, req.body.store)
     })
 })
 
