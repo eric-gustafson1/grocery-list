@@ -54,6 +54,7 @@ app.post('/api/add', (req, res) => {
         if (err) {
             return res.status(500).end();
         }
+        // console.log(res)
     })
 })
 

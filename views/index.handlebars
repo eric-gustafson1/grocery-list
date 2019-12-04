@@ -14,7 +14,7 @@
                 <a class="nav-link" href="/sprouts">Sprouts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/soopers">Soopers</a>
+                <a class="nav-link" href="/King Soopers">King Soopers</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/safeway">Safeway</a>
@@ -74,7 +74,7 @@
     })
 
     $('#addItem').on('submit', function (event) {
-        event.preventDefault();
+        //event.preventDefault();
         let newItem = {
             item: $("#addItem [name=newItem]").val().trim(),
             store: $("#addItem [name=store]").val().trim()
@@ -86,10 +86,10 @@
             data: newItem
         }).then(
             function () {
-                location.reload();
+                console.log('reloading...')
+                location.reload(true);
             }
-        )
-
-    })
+        );
+    });
 
 </script>
