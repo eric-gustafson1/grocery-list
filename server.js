@@ -27,9 +27,28 @@ connection.connect(function (err) {
     console.log('Connected as id: ' + connection.threadId);
 });
 
+// Using handlebars to render the list of groceries
+app.get('/', (req, res) => {
+    connection.query('SELECT * FROM groceries;', (err, data) => {
+        if (err) {
+            return res.statusCode(500).end();
+        }
+        res.render('index', { groceries: data })
+    })
+})
+
+app.post('/api/add', (req, res) => {
+    connection.query('INSERT INTO groceries (item, store) VALUES (?, ?);', [req.body.item, req.body.store], (err, result) => {
+        if (err) {
+            return res.status(500).end();
+        }
+        console.log(req.body.item, req.body.store)
+    })
+})
+
 
 // Start the server listening on PORT
 app.listen(PORT, function () {
     console.log('Server is listening on: http://localhost:' + PORT);
-}):
+});
 

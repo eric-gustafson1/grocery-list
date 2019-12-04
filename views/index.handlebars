@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-lg ">
+    <a class="navbar-brand" href="#">Grocery List</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">All Items <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Sprouts</a>
+            <a class="nav-item nav-link" href="#">Soopers</a>
+            <a class="nav-item nav-link" href="#">Safeway</a>
+            <a class="nav-item nav-link" href="#">Target</a>
+            {{!-- <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> --}}
+        </div>
+    </div>
+</nav>
+
+
+<h3 class="pt-5 pl-5 text-primary">All groceries</h3>
+<div class="list-group pl-5">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            {{#each groceries}}
+            <a href="#" class="list-group-item list-group-item-action">{{item}}</a>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<h3 class="pt-5 pl-5 text-primary">Add to your list</h3>
+<form id="addItem">
+    <div class="form-group pl-5">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <label for="exampleFormControlInput1">Item</label>
+                <input type="text" class="form-control" id="newItem" name="newItem" placeholder="grocery item">
+                <div class="form-group">
+                    <label for="storeSelect">Select a store</label>
+                    <select class="form-control" id="storeSelect" name="store">
+                        <option>Sprouts</option>
+                        <option>King Soopers</option>
+                        <option>Safeway</option>
+                        <option>Target</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary ml-5">Submit</button>
+
+</form>
+
+
+<script type="text/javascript">
+
+    $('.list-group-item').on('click', function (event) {
+        $(this).toggleClass('list-group-item-success')
+
+    })
+
+    $('#addItem').on('submit', function (event) {
+        event.preventDefault();
+        let newItem = {
+            item: $("#addItem [name=newItem]").val().trim(),
+            store: $("#addItem [name=store]").val().trim()
+        };
+
+        // Send the POST req
+        $.ajax('/api/add', {
+            type: 'POST',
+            data: newItem
+        }).then(
+            function () {
+                location.reload();
+            }
+        )
+
+    })
+
+</script>
