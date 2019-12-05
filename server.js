@@ -54,7 +54,19 @@ app.post('/api/add', (req, res) => {
         if (err) {
             return res.status(500).end();
         }
-        // console.log(res)
+    })
+})
+//looks like query happed
+app.post('/api/search', (req, res) => {
+    let search = req.body.item
+    console.log('search test');
+    console.log(`search: -> ${search}`);
+    console.log(`req: -> ${req}`);
+    connection.query('SELECT * FROM groceries WHERE item = ?', [search], (err, data) => {
+        if (err) {
+            return res.status(500).end();
+        }
+        console.log(data);
     })
 })
 

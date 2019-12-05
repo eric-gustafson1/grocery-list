@@ -23,8 +23,8 @@
                 <a class="nav-link" href="/target">Target</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <form id="search" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
@@ -73,8 +73,10 @@
 
     })
 
+
+
     $('#addItem').on('submit', function (event) {
-        //event.preventDefault();
+        event.preventDefault();
         let newItem = {
             item: $("#addItem [name=newItem]").val().trim(),
             store: $("#addItem [name=store]").val().trim()
@@ -91,5 +93,26 @@
             }
         );
     });
+
+
+    $('#search').on('submit', function (event) {
+        event.preventDefault();
+        let search = {
+            item: $("#search [name=search]").val().trim()
+        };
+
+        // Send the POST req
+        $.ajax('/api/search', {
+            type: 'POST',
+            data: search
+        }).then(
+            function () {
+                location.reload(true);
+            }
+        )
+        console.log(search)
+
+    });
+
 
 </script>
