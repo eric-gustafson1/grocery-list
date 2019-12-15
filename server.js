@@ -72,7 +72,7 @@ app.post('/api/search', (req, res) => {
 
 
 // Start the server listening on PORT
-app.listen(PORT, function () {
+app.listen(PORT, () => {
     console.log('Server is listening on: http://localhost:' + PORT);
 });
 
